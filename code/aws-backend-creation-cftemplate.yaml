@@ -24,6 +24,32 @@ Resources:
       Name: items-api
       ProtocolType: HTTP
       Target: !GetAtt ItemLambdaFunction.Arn
+  # ItemIntegration:
+  #   Type: 'AWS::ApiGatewayV2::Integration'
+  #   Properties:
+  #     ApiId: !Ref ItemAPI
+  #     Description: Lambda Integration
+  #     IntegrationType: AWS_PROXY
+  #     IntegrationUri: !Join
+  #       - ''
+  #       - - 'arn:'
+  #         - !Ref 'AWS::Partition'
+  #         - ':apigateway:'
+  #         - !Ref 'AWS::Region'
+  #         - ':lambda:path/2015-03-31/functions/'
+  #         - !GetAtt ItemLambdaFunction.Arn
+  #         - /item
+  #     IntegrationMethod: POST
+  #     PayloadFormatVersion: '2.0'
+  # ItemRoute:
+  #   Type: AWS::ApiGatewayV2::Route
+  #   Properties:
+  #     ApiId: !Ref ItemAPI
+  #     RouteKey: 'POST /items'
+  #     Target: !Join
+  #       - /
+  #       - - integrations
+  #         - !Ref ItemIntegration
   ItemLambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
